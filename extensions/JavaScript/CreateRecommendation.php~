@@ -1,0 +1,63 @@
+<?php
+$values = explode(",",$_GET['q']);
+$scale1 = $values[0];
+$scale2 = $values[1];
+
+$con = mysqli_connect('localhost','root','mayank@tum','my_wiki');
+
+if (mysqli_connect_errno())
+{
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+$sql = "CREATE TABLE scaleRecommendation (ScaleName1 CHAR(100),ScaleName2 CHAR(100),Count INT)";
+try
+{
+ mysqli_query($con,$sql);
+ echo "Table workTest created successfully";
+}
+catch(Exception $e)
+{
+ echo "Table already exists: " . $e->getMessage();
+}
+$select_query1 = "SELECT * from scaleQuestionsTest where ScaleName = " . "'".$scale1."'";
+$select_query2 = "SELECT * from scaleQuestionsTest where ScaleName = " . "'".$scale2."'"; 
+$result1 = mysqli_query($con,$select_query1);
+$result2 = mysqli_query($con,$select_query2);
+$id1 = 0;
+$id2 = 0;
+while($row = mysqli_fetch_array($result1))
+{
+   $id1=$row['ID'];
+}
+while($row = mysqli_fetch_array($result2))
+{
+   $id2=$row['ID'];
+}
+if($id1>$id2)
+{
+  $temp = $scale1;
+  $scale1 = $scale2;
+  $scale2 = $temp;
+}
+$count = 0;
+$flag = false; 
+$select_query3 = "SELECT * from scaleRecommendation where ScaleName1 = '".$scale1."' AND ScaleName2 = '".$scale2."'";
+$result3 = mysqli_query($con,$select_query3);
+while($row = mysqli_fetch_array($result3))
+{
+	$flag = true;
+	$count = $row['Count'];
+}
+if($flag)
+{
+	$update_query = "UPDATE scaleRecommendation SET Count = ". ($count+1) . " where ScaleName1 = '".$scale1."' AND ScaleName2 = '".$scale2."'";
+        mysqli_query($con,$update_query);
+}
+else
+{
+        $update_query = "INSERT INTO scaleRecommendation(ScaleName1, ScaleName2, Count)  VALUES ('". $scale1 . "','".$scale2."',".($count+1).")";
+        mysqli_query($con,$update_query);
+}
+mysqli_close($con);
+
+?>

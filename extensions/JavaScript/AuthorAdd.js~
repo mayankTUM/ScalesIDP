@@ -1,0 +1,862 @@
+$(document).ready(function(){
+
+	/*global variable declarations */
+	var parentScaleType = "";
+	var parentInitQuestion = "";
+
+
+	/* code to hide the author information */
+	var i;
+	for(i=2;i<=6;i++)
+	{
+		var author = "Author Information[Author Name "+ i+"]";
+		var uni = "Author Information[University "+ i +"]";
+		$('input[name="'+author+'"]').parent().parent().parent().hide();
+		$('input[name="'+uni+'"]').parent().parent().parent().hide();
+	}
+
+	/* code to display author information on select change event */
+	var authorSelectChange = "Author Information[Number of authors]";
+	$('select[name="'+authorSelectChange+'"] option:first-child').remove();
+	$('select[name="'+authorSelectChange+'"]').on('change', function(){
+		var index = parseInt($('select[name="'+authorSelectChange+'"] option:selected').val());
+		for(i=1;i<=6;i++)
+		{
+			var author = "Author Information[Author Name "+ i+"]";
+			var uni = "Author Information[University "+ i +"]";
+			if(i>index)
+			{
+				$('input[name="'+author+'"]').val("");
+				$('input[name="'+uni+'"]').val("");
+				$('input[name="'+author+'"]').parent().parent().parent().hide();
+				$('input[name="'+uni+'"]').parent().parent().parent().hide();
+			}
+			else
+			{
+				$('input[name="'+author+'"]').parent().parent().parent().show();
+				$('input[name="'+uni+'"]').parent().parent().parent().show();
+			}
+		}
+	}); 
+
+	/* code to hide the journal stuff */
+	var journalName = "Work Information[Journal]";
+	var volumeName = "Work Information[Volume]";
+	var issueName = "Work Information[Issues]";
+	var numOfPageName = "Work Information[Pages]";
+	/*  $('select[name="'+journalName+'"]').parent().parent().parent().hide();
+  $('input[name="'+volumeName+'"]').parent().parent().parent().hide();
+  $('textarea[name="'+issueName+'"]').parent().parent().parent().hide();
+  $('input[name="'+numOfPageName+'"]').parent().parent().parent().hide();*/
+
+	/* code to hide and show the journal stuff according to the type of work selected */
+	var selname = "Work Information[TypeWork]"; 
+	$('select[name="'+selname+'"] option:first-child').remove();
+	$('select[name="'+selname+'"]').on('change', function(){
+		var work = $( 'select[name="'+selname+'"] option:selected' ).val();
+		if(work=="Published Research") {
+			$('select[name="'+journalName+'"]').parent().parent().parent().show();
+			$('input[name="'+volumeName+'"]').parent().parent().parent().show();
+			$('textarea[name="'+issueName+'"]').parent().parent().parent().show();
+			$('input[name="'+numOfPageName+'"]').parent().parent().parent().show();
+		}
+		else {
+			$('select[name="'+journalName+'"]').val("");
+			$('input[name="'+volumeName+'"]').val("");
+			$('textarea[name="'+issueName+'"]').val("");
+			$('input[name="'+numOfPageName+'"]').val("");         
+			$('select[name="'+journalName+'"]').parent().parent().parent().hide();
+			$('input[name="'+volumeName+'"]').parent().parent().parent().hide();
+			$('textarea[name="'+issueName+'"]').parent().parent().parent().hide();
+			$('input[name="'+numOfPageName+'"]').parent().parent().parent().hide();
+		}
+	});
+
+	/* code to hide the scale information */
+	var i;
+	for(i=2;i<=4;i++)
+	{
+		var scaleName = "Scale Information[NameOfScale"+ i+"]";
+		var sampleSize = "Scale Information[SampleSize"+i+"]";
+		var sampleType = "Scale Information[SampleType"+i+"]";
+		var typeOfScale = "Scale Information[TypeOfScale"+i+"]";
+		var alpha = "Scale Information[Alpha"+ i+"]";
+		var initQuestion = "Scale Information[InitQuestion" + i + "]";
+		var items = "Scale Information[Items"+i+"]";
+		var questions = "Scale Information[Questions"+i+"]";
+		var context = "Scale Information[Context"+i+"]";
+		$('input[name="'+scaleName+'"]').parent().parent().parent().hide();
+		$('input[name="'+sampleSize+'"]').parent().parent().parent().hide();
+		$('textarea[name="'+sampleType+'"]').parent().parent().parent().hide();
+		$('select[name="'+typeOfScale+'"]').parent().parent().parent().hide();
+		//$('input[name="'+alpha+'"]').parent().parent().parent().hide();
+		$('textarea[name="'+initQuestion+'"]').parent().parent().parent().hide();
+		$('input[name="'+items+'"]').parent().parent().parent().hide();
+		$('textarea[name="'+questions+'"]').parent().parent().parent().hide();
+		$('textarea[name="'+context+'"]').parent().parent().parent().hide();
+	}
+
+	/* code to display scale information on select change event */
+	var scaleSelectChange = "Scale Information[NumberOfScales]";
+	$('select[name="'+scaleSelectChange+'"] option:first-child').remove();
+	$('select[name="'+scaleSelectChange+'"]').on('change', function(){
+		var index = parseInt($('select[name="'+scaleSelectChange+'"] option:selected').val());
+		for(i=1;i<=4;i++)
+		{
+			var scaleName = "Scale Information[NameOfScale"+ i+"]";
+			var sampleSize = "Scale Information[SampleSize"+i+"]";
+			var sampleType = "Scale Information[SampleType"+i+"]";
+			var typeOfScale = "Scale Information[TypeOfScale"+i+"]";
+			//var alpha = "Scale Information[Alpha"+ i+"]";
+			var initQuestion = "Scale Information[InitQuestion" + i + "]";
+			var items = "Scale Information[Items"+i+"]";
+			var questions = "Scale Information[Questions"+i+"]";
+			var context = "Scale Information[Context"+i+"]";
+			if(i>index)
+			{
+				$('input[name="'+scaleName+'"]').val("");                        
+				$('input[name="'+sampleSize+'"]').val("");
+				$('textarea[name="'+sampleType+'"]').val("");
+				$('select[name="'+typeOfScale+'"]').val("");
+				//$('input[name="'+alpha+'"]').val("");
+				$('input[name="'+items+'"]').val("");
+				$('textarea[name="'+initQuestion+'"]').val("");
+				$('textarea[name="'+questions+'"]').val("");
+				$('textarea[name="'+context+'"]').val("");
+				$('input[name="'+scaleName+'"]').parent().parent().parent().hide();
+				$('input[name="'+sampleSize+'"]').parent().parent().parent().hide();
+				$('textarea[name="'+sampleType+'"]').parent().parent().parent().hide();
+				$('select[name="'+typeOfScale+'"]').parent().parent().parent().hide();
+				//$('input[name="'+alpha+'"]').parent().parent().parent().hide();
+				$('textarea[name="'+initQuestion+'"]').parent().parent().parent().hide();
+				$('input[name="'+items+'"]').parent().parent().parent().hide();
+				$('textarea[name="'+questions+'"]').parent().parent().parent().hide();
+				$('textarea[name="'+context+'"]').parent().parent().parent().hide();
+			}
+			else
+			{
+				$('input[name="'+scaleName+'"]').parent().parent().parent().show();
+				$('input[name="'+sampleSize+'"]').parent().parent().parent().show();
+				$('textarea[name="'+sampleType+'"]').parent().parent().parent().show();
+				$('select[name="'+typeOfScale+'"]').parent().parent().parent().show();
+				//$('input[name="'+alpha+'"]').parent().parent().parent().show();
+				$('textarea[name="'+initQuestion+'"]').parent().parent().parent().show();
+				$('input[name="'+items+'"]').parent().parent().parent().show();
+				$('textarea[name="'+questions+'"]').parent().parent().parent().show();
+				$('textarea[name="'+context+'"]').parent().parent().parent().show();
+			}
+		}
+	}); 
+
+	/* code to hide/show the alpha rating based in the type of scale */
+
+	var scaleTypeRegEx = "Scale Information[TypeOfScale";
+	var alphaRegEx = "Scale Information[Alpha";
+	$('select[name^="'+scaleTypeRegEx+'"] option:first-child').remove();
+	$('input[name^="'+alphaRegEx+'"]').parent().parent().parent().hide();
+	for(i=1;i<=4;i++)
+	{
+		$('select[name="'+scaleTypeRegEx+i+']"]').on('change', function(){
+			var type = $("option:selected", this).val();
+			if(type == "Reflective")
+			{
+				$(this).parent().parent().parent().next().show();
+			}
+			else
+			{
+				$('input[name="'+alpha+'"]').val("");
+				$(this).parent().parent().parent().next().hide();
+			}	
+		});
+	}
+
+	/* code to bring questions of scales from database */ 
+	var scaleNameRegEx = "Scale Information[NameOfScale";
+	var scaleTypeRegEx = "Scale Information[TypeOfScale";
+	var ratingRegEx = "Scale Information[Alpha"; 
+	for(i=1;i<=4;i++)
+	{
+		$('input[name^="'+scaleNameRegEx+i+']"]').on('blur', function(){
+			var scaleName = $(this).val();
+			var elementName = $(this).attr('name');
+			getQuestions(scaleName, elementName);
+		});
+	}
+
+	/* code to submit ratings and create recommendations */
+	var pageName = $('#firstHeading').children().first().text();
+	if(pageName.indexOf("Create WorkEntry") >= 0 ) {
+		$('#wpDiff').hide();
+		$('<button id="ratings" name="ratings" type="button"> Submit Data </button>' ).insertBefore($('#wpSave'));
+		$('#wpSave').prop("disabled",true);
+		$('button[name=ratings]').on('click', function() {      
+			var noOfScales = $("select[name='Scale Information[NumberOfScales]'] option:selected").val();
+			var i,j;
+			for(i=1;i<=noOfScales;i++)
+			{
+				var scaleName = $('input[name="'+scaleNameRegEx+i+']"]').val();
+				var rating = $('input[name="'+ratingRegEx+i+']"]').val();
+				if($('select[name="'+scaleTypeRegEx+i+']"] option:selected').val()=="Reflective")
+					submitRatings(scaleName, rating);
+			}
+
+			for(i=1;i<noOfScales;i++)
+				for(j=i+1;j<=noOfScales;j++)
+				{
+					var scaleName1 = $('input[name^="'+scaleNameRegEx+i+']"]').val();
+					var scaleName2 = $('input[name^="'+scaleNameRegEx+j+']"]').val();
+					createRecommendation(scaleName1, scaleName2);
+				}	
+			$('#wpSave').prop("disabled",false);
+			$(this).prop("disabled", true);
+			alert("Data submitted successfully !!");
+		});
+	}  
+
+	/* code to hide the empty table entries */
+	$('td').each(function() {
+		var text = $(this).html();
+		text=$.trim(text);
+		if(text.indexOf("}}")>=0)
+		{
+			text = text.replace("}}","");
+			$(this).html(text);
+		}
+		if(text=="")
+			$(this).parent().remove();
+	});
+
+	/* code to display scale field according to Scale Type in Scale Entry form*/
+	$('select[name="ScaleKind Information[Type of Scale]"] option:first-child').remove();
+	$('textarea[name="Dist Information[InitQuestion2]"]').parent().parent().parent().parent().hide();
+	$('textarea[name="Qsort Information[InitQuestion3]"]').parent().parent().parent().parent().hide();
+	$('select[name="ScaleKind Information[Type of Scale]"]').on('change', function (){
+		changeTypeOfScale();
+	});
+
+	/* code to display rating on Scale page */  
+	if(pageName.indexOf("Create") < 0 ) {
+		var selector1 = $('#General_Information').parent().next();
+		var selector2 = $('#Recommended_Scales').parent();
+		if(selector1!=null) {
+			$('<span name="Rating"></span>').insertBefore($(selector1));
+			$('<span name="Recommendation"></span>').insertAfter($(selector2));
+			retrieveRatingRecom(pageName);
+		}
+	}
+
+	/* code to hide Recommended Scales section in create ScaleEntry form */
+	if(pageName.indexOf("Create") >= 0 ) {
+		$('#Recommended_Scales').parent().hide();
+		$('a[href="#Recommended_Scales"]').parent().hide();
+	}
+
+	/* code to display create sub-scale button on scale pages */
+	var scalePageSelector = $('#General_Information').length;
+	if(scalePageSelector != 0 && pageName.indexOf("Create") < 0) 
+	{
+      
+		$("#mw-content-text").append('<br><br><div style="border:1px solid #dcdcdc;background-color:#f4f4f4;"> &nbsp;Please enter the name of the Sub-Scale : <input type = "text" name="subscaleName" id = "subscaleId"/>&nbsp;<button id="subScale" name="subScale" type="button" >Create Sub-Scale</button>');
+		//$("#mw-content-text").append('<button id="subScale" name="subScale" type="button" >Create Sub-Scale</button>'); 
+                $("#mw-content-text").append('</div>');
+                $('button[name="subScale"]').prop("disabled",true);
+                $('input[name="subscaleName"]').on('keyup', function(){
+		    checkScaleExistence($(this).val());
+                });
+		$('#subScale').click(function(){
+			var ParentScale = $('#firstHeading').children().first().text();
+			window.location.replace("http://localhost/wiki/index.php/Special:FormEdit/SubscaleEntry/"+$("#subscaleId").val()+"?parentScale="+ParentScale);
+		})
+	}
+
+	/* code to get parent scale name and autofill the values */
+	if(document.URL.indexOf("parentScale")>=0)
+	{
+		var start = document.URL.indexOf("parentScale")+12;
+		var end = document.URL.length;
+		var parentName = document.URL.substring(start,end);
+		$('input[name="Subscale Information[Parent Scale]"]').val(parentName);
+		$('input[name="Subscale Information[Parent Scale]"]').attr('disabled','disabled');
+		autofillScaleDetails(parentName, pageName, document.URL);
+	}
+
+	/* on whatever page we find the DOI field, insert an autofill button after it */
+	$('<tr><td><button type="button" name="autofillScale" id="autofillScale"> Autofill Scale Details </button></td></tr>').insertAfter($('textarea[name$="DOI]"]').parent().parent().parent());
+
+	/* call the DOI url on the button click */
+	$('button[name="autofillScale"]').on('click', function(){
+		var doiVal = $('textarea[name$="DOI]"]').val();
+		$.get("http://search.labs.crossref.org/dois?q="+doiVal,function(data,status){
+			var url = data[0]['doi'];
+			var year = data[0]['year'];
+			var fullCitation = data[0]['fullCitation'].split(",");
+			var i=0,volume,issues,pages;
+			while(i!=fullCitation.length)
+			{
+				if(fullCitation[i].indexOf("vol.")>=0)
+				{
+					volume = fullCitation[i].substr(5,fullCitation[i].length).trim();
+				} 
+				if(fullCitation[i].indexOf("no.")>=0)
+				{
+					issues = fullCitation[i].substr(4,fullCitation[i].length).trim();
+				}
+				if(fullCitation[i].indexOf("pp.")>=0)
+				{
+					pages = fullCitation[i].substr(4,fullCitation[i].length).trim();
+				} 
+				i++;
+			}
+			$('textarea[name$="Volume]"]').val(volume);
+			$('textarea[name$="Issues]"]').val(issues);
+			$('textarea[name$="Pages]"]').val(pages);
+			$('input[name$="Link]"]').val(url);
+			$('input[name$="Year]"]').val(year);
+		});
+	});
+
+     if(pageName.indexOf("Create Scale") >=0)
+    	submitScaleInformation(pageName);
+
+     if(pageName.indexOf("Create Subscale") >=0 && document.URL.indexOf("parentScale")<0)
+     {
+	var selector = $('input[name="Subscale Information[Parent Scale]"]');
+        selector.on('blur', function(){
+		autofillScaleDetails($(this).val(),pageName);
+	});
+     }
+
+     /* code to see if the author already exists and display a message accordingly */
+     var authorList = $('input[name^="Author Information[Author Name"]');
+     for(i=1;i<=authorList.length;i++)
+     {
+	var author = "Author Information[Author Name "+ i+"]";
+        $('input[name="'+author+'"]').on('keyup', function(){
+		checkAuthorExistence($(this).val(),$(this).attr('name'));
+	});
+     }
+
+});
+
+
+
+
+
+/* AJAX function to check if the subscale name already exists */
+function checkScaleExistence(scaleName)
+{
+        if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var scaleExists = xmlhttp.responseText.trim();
+                        if(scaleExists == "true")
+			{
+                           if($('#ScaleExistenceWarning').length==0)
+                           {
+				$('<p id="ScaleExistenceWarning"><font color="red" size="1px">  Warning: This page name already exists. Please choose a different scale name.</font></p>').insertBefore($('button[name="subScale"]'));
+			   }	   
+			   $('button[name="subScale"]').prop("disabled",true);                     
+			}
+			else{
+				$('#ScaleExistenceWarning').remove();
+                                $('button[name="subScale"]').prop("disabled",false);
+			}
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/CheckScaleExistence.php?q="+scaleName, true);
+	xmlhttp.send();
+
+}
+
+/* AJAX function to check if the author already exists */
+function checkAuthorExistence(authorName,fieldName)
+{
+        if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var authorExists = xmlhttp.responseText.trim();
+                        if(authorExists == "true")
+                        {
+
+			   fieldName = fieldName.replace("Author Information[Author Name ","");
+			   var index = fieldName.charAt(0);
+                           if($('#AuthorExistenceWarning').length==0)
+                           {
+				$('<tr id="AuthorExistenceWarning"><td colspan=2><font color="red" size="1px">  Warning: The Author already exists. Please verify your identity by visiting page <a href = "http://localhost/wiki/index.php/'+authorName+'">'+ authorName +'</a>.</font></td></tr>').insertAfter($('input[name="Author Information[Author Name '+index+']"]').parent().parent().parent());
+			   }	                        
+			}
+			else{
+				$('#AuthorExistenceWarning').remove();
+			}
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/CheckAuthorExistence.php?q="+authorName, true);
+	xmlhttp.send();
+}
+
+
+function submitScaleInformation(pageName)
+{
+	/* code to insert scale information in the database before saving unstructured information for scale*/
+		$('#wpDiff').hide();
+		$('<button id="submitScaleToDb" name="submitScaleToDb" type="button">Submit Data</button>' ).insertBefore($('#wpSave'));
+		$('#wpSave').prop("disabled",true);
+                var parentName = "";
+                if(pageName.indexOf('Create Subscale') >= 0)
+                {
+                        parentName = $('input[name="Subscale Information[Parent Scale]"]').val(); 
+                	var parentScaleType = $('select[name="ScaleKind Information[Type of Scale]"] option:selected').val();
+                	var parentInitQuestion;
+                	if(parentScaleType == "Likert")
+			{
+				parentInitQuestion = $('textarea[name="Likert Information[InitQuestion1]"]').val();
+			}
+			else if(parentScaleType == "Distribution")
+			{	
+				parentInitQuestion = $('textarea[name="Dist Information[InitQuestion2]"]').val();
+			}
+			else if(parentScaleType == "Q-Sort")
+			{
+				parentInitQuestion = $('textarea[name="Qsort Information[InitQuestion3]"]').val();
+			}
+                }
+                else
+                {
+			parentName = "Main Page";
+                } 
+                
+		$('button[name="submitScaleToDb"]').on('click', function() {      
+			var scaleName;
+			alert("came in");	
+                        if(pageName.indexOf("Create Subscale") >=0)
+				scaleName = pageName.substring(22);   
+			else
+				scaleName = pageName.substring(19);   
+			var scaleQues = "";
+			var scaleInitQues = "";
+			var noItems = "";
+			var fromLikert = "";
+			var toLikert = "";
+			var lowest = "";
+			var highest = "";
+			var noPoints = "";
+			var fromQsort = "";
+			var toQsort = "";
+			var orderLogic = "";
+			var explanation = "";
+
+			var scaleType = $('select[name="ScaleKind Information[Type of Scale]"] option:selected').val();
+			if(scaleType=="Likert") {
+				scaleQues= $('textarea[name="Likert Information[Questions1]"]').val();
+				scaleInitQues = $('textarea[name="Likert Information[InitQuestion1]"]').val();         
+				noItems = $('input[name="Likert Information[Items1]"]').val();
+				fromLikert = $('input[name="Likert Information[LikertFrom]"]').val();
+				toLikert = $('input[name="Likert Information[LikertTo]"]').val();
+				lowest = $('textarea[name="Likert Information[LikertLowest]"]').val();
+				highest = $('textarea[name="Likert Information[LikertHighest]"]').val();
+			} else if(scaleType=="Distribution") {
+				scaleQues = $('textarea[name="Dist Information[Questions2]"]').val();
+				scaleInitQues = $('textarea[name="Dist Information[InitQuestion2]"]').val();
+				noItems = $('input[name="Dist Information[Items2]"]').val();
+				noPoints = $('input[name="Dist Information[DistPoints]"]').val();
+			} else if(scaleType=="Q-Sort") {
+				scaleQues = $('textarea[name="Qsort Information[Questions3]"]').val();
+				scaleInitQues = $('textarea[name="Qsort Information[InitQuestion3]"]').val();
+				noItems = $('input[name="Qsort Information[Items3]"]').val();
+				fromQsort = $('textarea[name="Qsort Information[QsortFrom]"]').val();
+				toQsort = $('textarea[name="Qsort Information[QsortTo]"]').val();
+				orderLogic = $('textarea[name="Qsort Information[OrderLogic]"]').val();
+				explanation = $('textarea[name="Qsort Information[QsortExplanation]"]').val();
+			}
+			var scaleInfo = scaleName+ "," + scaleQues + "," + scaleInitQues + "," + noItems + "," + fromLikert + "," + toLikert + "," + lowest + "," + highest + "," + noPoints + "," + fromQsort + "," + toQsort + "," + orderLogic + "," + explanation + "," + scaleType;
+		
+		if(pageName.indexOf('Create Subscale') >= 0)
+                    {
+	                if(parentScaleType != scaleType || parentInitQuestion!= scaleInitQues)
+		        {	
+			//   submitScaleInfoToDb(scaleInfo);
+			   submitToParentChildScaleDb(parentName,scaleName);
+			   $('#wpSave').prop("disabled",false);
+			   $(this).prop("disabled", true);
+			}
+			else
+				alert("The type and intial question of subscale is similar to parent scale. You need to change either of them to create a subscale");
+                    }
+		else
+		{	
+			 //  submitScaleInfoToDb(scaleInfo);
+                           submitToParentChildScaleDb(parentName,scaleName);
+			   $('#wpSave').prop("disabled",false);
+			   $(this).prop("disabled", true);
+		}   
+	});
+}
+
+
+function changeTypeOfScale()
+{
+	var scaleType = $('select[name="ScaleKind Information[Type of Scale]"] option:selected').val();
+	if(scaleType=="Likert") {
+		$('textarea[name="Likert Information[InitQuestion1]"]').parent().parent().parent().parent().show();
+		$('textarea[name="Dist Information[InitQuestion2]"]').parent().parent().parent().parent().hide();
+		$('textarea[name="Qsort Information[InitQuestion3]"]').parent().parent().parent().parent().hide();
+
+		/*code to make all fields blank for Dist Information*/
+		$('textarea[name="Dist Information[InitQuestion2]"]').val("");
+		$('input[name="Dist Information[Items2]"]').val("");
+		$('textarea[name="Dist Information[Questions2]"]').val("");
+		$('input[name="Dist Information[DistPoints]"]').val("");
+
+		/*code to make all fields blank for Qsort Information*/
+		$('textarea[name="Qsort Information[InitQuestion3]"]').val("");
+		$('input[name="Qsort Information[Items3]"]').val("");
+		$('textarea[name="Qsort Information[Questions3]"]').val("");
+		$('textarea[name="Qsort Information[OrderLogic]"]').val("");
+		$('textarea[name="Qsort Information[QsortFrom]"]').val("");
+		$('textarea[name="Qsort Information[QsortTo]"]').val("");
+		$('textarea[name="Qsort Information[QsortExplanation]"]').val("");
+
+
+	} else if(scaleType=="Distribution") {
+		$('textarea[name="Dist Information[InitQuestion2]"]').parent().parent().parent().parent().show();
+		$('textarea[name="Likert Information[InitQuestion1]"]').parent().parent().parent().parent().hide();
+		$('textarea[name="Qsort Information[InitQuestion3]"]').parent().parent().parent().parent().hide();     
+
+		/*code to make all fields blank for Likert Information*/
+		$('textarea[name="Likert Information[InitQuestion1]"]').val("");
+		$('input[name="Likert Information[Items1]"]').val("");
+		$('textarea[name="Likert Information[Questions1]"]').val("");
+		$('input[name="Likert Information[LikertFrom]"]').val("");
+		$('input[name="Likert Information[LikertTo]"]').val("");
+		$('textarea[name="Likert Information[LikertLowest]"]').val("");
+		$('textarea[name="Likert Information[LikertHighest]"]').val("");
+
+		/*code to make all fields blank for Qsort Information*/
+		$('textarea[name="Qsort Information[InitQuestion3]"]').val("");
+		$('input[name="Qsort Information[Items3]"]').val("");
+		$('textarea[name="Qsort Information[Questions3]"]').val("");
+		$('textarea[name="Qsort Information[OrderLogic]"]').val("");
+		$('textarea[name="Qsort Information[QsortFrom]"]').val("");
+		$('textarea[name="Qsort Information[QsortTo]"]').val("");
+		$('textarea[name="Qsort Information[QsortExplanation]"]').val("");
+
+	} else if(scaleType=="Q-Sort") {
+		$('textarea[name="Qsort Information[InitQuestion3]"]').parent().parent().parent().parent().show();     
+		$('textarea[name="Likert Information[InitQuestion1]"]').parent().parent().parent().parent().hide();
+		$('textarea[name="Dist Information[InitQuestion2]"]').parent().parent().parent().parent().hide();
+
+		/*code to make all fields blank for Likert Information*/
+		$('textarea[name="Likert Information[InitQuestion1]"]').val("");
+		$('input[name="Likert Information[Items1]"]').val("");
+		$('textarea[name="Likert Information[Questions1]"]').val("");
+		$('input[name="Likert Information[LikertFrom]"]').val("");
+		$('input[name="Likert Information[LikertTo]"]').val("");
+		$('textarea[name="Likert Information[LikertLowest]"]').val("");
+		$('textarea[name="Likert Information[LikertHighest]"]').val("");
+
+		/*code to make all fields blank for Dist Information*/
+		$('textarea[name="Dist Information[InitQuestion2]"]').val("");
+		$('input[name="Dist Information[Items2]"]').val("");
+		$('textarea[name="Dist Information[Questions2]"]').val("");
+		$('input[name="Dist Information[DistPoints]"]').val("");
+
+	}
+} 
+
+/* AJAX code to get the parent scale details on sub scale page : AUTOFILL */
+function autofillScaleDetails(parentName, pageName)
+{
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var textar = xmlhttp.responseText.split(",");
+			var typeOfScale = textar[12].trim();
+			$('select[name="ScaleKind Information[Type of Scale]"]').val(typeOfScale);
+			changeTypeOfScale();
+			if(typeOfScale=="Likert")
+			{
+				$('textarea[name="Likert Information[InitQuestion1]"]').val(textar[1]);
+				$('input[name="Likert Information[Items1]"]').val(textar[2]);
+				$('textarea[name="Likert Information[Questions1]"]').val(textar[0]);
+				$('input[name="Likert Information[LikertFrom]"]').val(textar[3]);
+				$('input[name="Likert Information[LikertTo]"]').val(textar[4]);
+				$('textarea[name="Likert Information[LikertLowest]"]').val(textar[5]);
+				$('textarea[name="Likert Information[LikertHighest]"]').val(textar[6]);
+			}
+			else if(typeOfScale=="Distribution")
+			{ 
+				$('textarea[name="Dist Information[InitQuestion2]"]').val(textar[1]);
+				$('input[name="Dist Information[Items2]"]').val(textar[2]);
+				$('textarea[name="Dist Information[Questions2]"]').val(textar[0]);
+				$('input[name="Dist Information[DistPoints]"]').val(textar[7]);
+			}
+			else if(typeOfScale=="Q-Sort")
+			{
+				$('textarea[name="Qsort Information[InitQuestion3]"]').val(textar[1]);
+				$('input[name="Qsort Information[Items3]"]').val(textar[2]);
+				$('textarea[name="Qsort Information[Questions3]"]').val(textar[0]);
+				$('textarea[name="Qsort Information[OrderLogic]"]').val(textar[10]);
+				$('textarea[name="Qsort Information[QsortFrom]"]').val(textar[8]);
+				$('textarea[name="Qsort Information[QsortTo]"]').val(textar[9]);
+				$('textarea[name="Qsort Information[QsortExplanation]"]').val(textar[11]);
+			}
+			submitScaleInformation(pageName);
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/AutofillScaleDetails.php?q="+parentName, true);
+	xmlhttp.send();
+}
+
+
+/* AJAX code for getting the questions without page refresh */
+function getQuestions(scaleName, elementName)
+{
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			elementName = elementName.replace("Scale Information[NameOfScale","");
+			var index = elementName.charAt(0);
+			var initQuesId =  "Scale Information[InitQuestion" + index + "]";
+			var noOfItemsId = "Scale Information[Items" + index + "]"; 
+			var quesId =  "Scale Information[Questions" + index + "]";
+			var textar = xmlhttp.responseText.split(",");
+			$('textarea[name="'+initQuesId+'"]').val(textar[0]);         
+			$('input[name="'+noOfItemsId+'"]').val(parseInt(textar[1])); 
+			$('textarea[name="'+quesId+'"]').val(textar[2]);
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/GetQuestions.php?q="+scaleName, true);
+	xmlhttp.send();
+}
+
+
+
+/*AJAX function for parent child relationship */
+function submitToParentChildScaleDb(parentName,scaleName)
+{
+        if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			alert("Parent Child Relation Added");
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/SubmitToParentChildScaleDb.php?q="+parentName+","+scaleName, true);
+	xmlhttp.send();
+
+}
+
+function submitRatings(scaleName, rating)
+{
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/SubmitRating.php?q="+scaleName+","+rating, true);
+	xmlhttp.send();
+}
+function createRecommendation(scaleName1, scaleName2)
+{
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/CreateRecommendation.php?q="+scaleName1+","+scaleName2, true);
+	xmlhttp.send();
+}
+
+function retrieveRating(scaleName)
+{
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var retVal = xmlhttp.responseText;            
+			if(retVal!=-1.0){
+				$('span[name="Rating"]').text("The average rating of this scale is: " + retVal);
+			} else {
+				$('span[name="Rating"]').text("This scale has not been rated yet.");
+			}
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/RetrieveRating.php?q="+scaleName, true);
+	xmlhttp.send();
+}
+
+function retrieveRecommendation(scaleName)
+{
+	// alert("Name of Page: " + scaleName);
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var retText = xmlhttp.responseText;
+			// alert("recieved text "+retText);
+			if(retText==""){
+				$('span[name="Recommendation"]').text("There are no recommendations available yet. ");
+			} else {
+				$('span[name="Recommendation"]').text("This scales has been most frequently used with following scales:");
+				$('<ul name="RecomList"></ul>').insertAfter($('span[name="Recommendation"]'));
+				// alert(retText);
+				var scales = retText.split(",");
+				var scaleLen = scales.length;
+				var i=0;
+				for(i=0;i<scaleLen-1;i++){
+					$('ul[name="RecomList"]').append("<li> <a href='" + "http://localhost/wiki/index.php/" + scales[i] + "'>"+scales[i] + "</a> </li>");   
+				}
+			}
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/RetrieveRecommendation.php?q="+scaleName, true);
+	xmlhttp.send();
+}
+
+function retrieveRatingRecom(scaleName)
+{
+	// alert("Name of Page: " + scaleName);
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var text = xmlhttp.responseText;
+			var queryRes = text.split("|");
+
+			var retVal = parseFloat(queryRes[0]);            
+			if(retVal!=-1.0){
+				$('span[name="Rating"]').text("The average rating of this scale is: " + retVal);
+			} else {
+				$('span[name="Rating"]').text("This scale has not been rated yet.");
+			}
+
+			var retText = queryRes[1];
+			if(retText==""){
+				$('span[name="Recommendation"]').text("There are no recommendations available yet. ");
+			} else {
+				$('span[name="Recommendation"]').text("This scales has been most frequently used with following scales:");
+				$('<ul name="RecomList"></ul>').insertAfter($('span[name="Recommendation"]'));
+				// alert(retText);
+				var scales = retText.split(",");
+				var scaleLen = scales.length;
+				var i=0;
+				for(i=0;i<scaleLen-1;i++){
+					$('ul[name="RecomList"]').append("<li> <a href='" + "http://localhost/wiki/index.php/" + scales[i] + "'>"+scales[i] + "</a> </li>");   
+				}
+			}
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/RetrieveRatingRecom.php?q="+scaleName, true);
+	xmlhttp.send();
+}
+
+
+/* AJAX function to add scale info to database */  
+function submitScaleInfoToDb(scaleInfo)
+{
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			alert('Scale information submitted to database !');
+		}
+	}
+	xmlhttp.open("GET","http://localhost/wiki/extensions/JavaScript/SubmitScaleToDb.php?q="+scaleInfo, true);
+	xmlhttp.send();
+}
